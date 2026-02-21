@@ -12,7 +12,7 @@
     <main class="wizard-card">
         <h1>Automatic CV Generator</h1>
         <p>Create your professional CV in four simple steps.</p>
-        <a href="${pageContext.request.contextPath}/etatcivil" class="btn btn-primary">Start</a>
+        <a href="${pageContext.request.contextPath}/etat-civil" class="btn btn-primary">Start</a>
     </main>
 </body>
 </html>

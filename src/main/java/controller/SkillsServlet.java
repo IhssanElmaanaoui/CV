@@ -3,17 +3,19 @@ package controller;
 import dao.SkillsDAO;
 import model.SkillsHobbies;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  * Controller for Step 4 – Skills & Hobbies.
  * GET: show form; POST: save to session, persist via SkillsDAO, redirect to CV preview.
  */
+@WebServlet("/skills")
 public class SkillsServlet extends HttpServlet {
 
     private static final String VIEW = "/WEB-INF/views/skills.jsp";

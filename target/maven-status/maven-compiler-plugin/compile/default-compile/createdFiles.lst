@@ -2,13 +2,17 @@ model\Experience.class
 controller\EtatCivilServlet.class
 dao\EtatCivilDAO.class
 dao\SkillsDAO.class
+controller\LoginServlet.class
 model\EtatCivil.class
 controller\FormationServlet.class
+util\AuthUtil.class
 controller\ExperienceServlet.class
 controller\SkillsServlet.class
+filter\AuthFilter.class
 model\Formation.class
 dao\ExperienceDAO.class
 model\SkillsHobbies.class
+controller\LogoutServlet.class
 dao\FormationDAO.class
 util\FileStorageUtil.class
 controller\CvPreviewServlet.class

@@ -3,17 +3,19 @@ package controller;
 import dao.EtatCivilDAO;
 import model.EtatCivil;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  * Controller for Step 1 – Personal Information (État Civil).
  * GET: show form; POST: validate, store in session, persist via DAO, redirect to step 2.
  */
+@WebServlet("/etat-civil")
 public class EtatCivilServlet extends HttpServlet {
 
     private static final String VIEW = "/WEB-INF/views/etatcivil.jsp";

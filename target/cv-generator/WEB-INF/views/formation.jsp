@@ -34,7 +34,7 @@
             <input type="text" id="endYear" name="endYear" placeholder="e.g. 2022">
 
             <div class="form-actions">
-                <a href="${pageContext.request.contextPath}/etatcivil" class="btn btn-secondary">Back</a>
+                <a href="${pageContext.request.contextPath}/etat-civil" class="btn btn-secondary">Back</a>
                 <button type="submit" class="btn btn-primary">Next – Experience</button>
             </div>
         </form>

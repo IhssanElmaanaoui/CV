@@ -20,7 +20,7 @@
             <p class="error-msg">${error}</p>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/etatcivil" method="post" class="wizard-form">
+        <form action="${pageContext.request.contextPath}/etat-civil" method="post" class="wizard-form">
             <label for="firstName">First name <span class="required">*</span></label>
             <input type="text" id="firstName" name="firstName" value="${etatCivil.firstName}" required>
 

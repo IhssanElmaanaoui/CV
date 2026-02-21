@@ -10,8 +10,9 @@
 </head>
 <body class="cv-page">
     <div class="cv-actions">
-        <a href="${pageContext.request.contextPath}/etatcivil" class="btn btn-secondary">Edit from start</a>
+        <a href="${pageContext.request.contextPath}/etat-civil" class="btn btn-secondary">Edit from start</a>
         <button type="button" class="btn btn-primary" onclick="window.print();">Print / Save as PDF</button>
+        <a href="${pageContext.request.contextPath}/logout" class="btn btn-secondary">Logout</a>
     </div>
 
     <article class="cv-document" id="cv-document">

@@ -5,11 +5,12 @@ import model.Experience;
 import model.Formation;
 import model.SkillsHobbies;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  * Reads all data from session and forwards to CV JSP.
  * No business logic in view; model attributes only.
  */
+@WebServlet("/cv")
 public class CvPreviewServlet extends HttpServlet {
 
     private static final String VIEW = "/WEB-INF/views/cv.jsp";
@@ -27,13 +29,13 @@ public class CvPreviewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/etatcivil");
+            response.sendRedirect(request.getContextPath() + "/etat-civil");
             return;
         }
 
         EtatCivil etatCivil = (EtatCivil) session.getAttribute("etatCivil");
         if (etatCivil == null) {
-            response.sendRedirect(request.getContextPath() + "/etatcivil");
+            response.sendRedirect(request.getContextPath() + "/etat-civil");
             return;
         }
         @SuppressWarnings("unchecked")
