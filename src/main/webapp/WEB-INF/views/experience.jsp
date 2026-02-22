@@ -25,11 +25,19 @@
         </c:if>
 
         <form action="${pageContext.request.contextPath}/experience" method="post" class="wizard-form">
-            <label>Type</label>
-            <div class="radio-group">
-                <label class="radio-label"><input type="radio" name="type" value="job" checked> Job</label>
-                <label class="radio-label"><input type="radio" name="type" value="stage"> Stage (internship)</label>
-            </div>
+            <fieldset class="type-fieldset">
+                <legend class="type-legend">Type</legend>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="type" value="job" checked>
+                        <span>Job</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="type" value="stage">
+                        <span>Stage (internship)</span>
+                    </label>
+                </div>
+            </fieldset>
 
             <label for="jobTitle">Job title</label>
             <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Software Engineer">

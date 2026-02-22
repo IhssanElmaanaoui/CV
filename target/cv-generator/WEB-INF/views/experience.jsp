@@ -20,7 +20,25 @@
             <p class="error-msg">${error}</p>
         </c:if>
 
+        <c:if test="${not empty experiences}">
+            <p class="added-list">Added: <strong>${experiences.size()}</strong> experience(s) – Stage and/or Jobs.</p>
+        </c:if>
+
         <form action="${pageContext.request.contextPath}/experience" method="post" class="wizard-form">
+            <fieldset class="type-fieldset">
+                <legend class="type-legend">Type</legend>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="type" value="job" checked>
+                        <span>Job</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="type" value="stage">
+                        <span>Stage (internship)</span>
+                    </label>
+                </div>
+            </fieldset>
+
             <label for="jobTitle">Job title</label>
             <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Software Engineer">
 
@@ -38,7 +56,8 @@
 
             <div class="form-actions">
                 <a href="${pageContext.request.contextPath}/formation" class="btn btn-secondary">Back</a>
-                <button type="submit" class="btn btn-primary">Next – Skills & Hobbies</button>
+                <button type="submit" name="action" value="add" class="btn btn-secondary">Add experience</button>
+                <button type="submit" name="action" value="next" class="btn btn-primary">Next – Skills & Hobbies</button>
             </div>
         </form>
     </main>
