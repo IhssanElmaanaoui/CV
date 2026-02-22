@@ -24,6 +24,7 @@ public class ExperienceDAO {
         for (int i = 0; i < list.size(); i++) {
             Experience ex = list.get(i);
             String p = "item." + i + ".";
+            setIfNotNull(props, p + "type", ex.getType());
             setIfNotNull(props, p + "jobTitle", ex.getJobTitle());
             setIfNotNull(props, p + "company", ex.getCompany());
             setIfNotNull(props, p + "startDate", ex.getStartDate());
@@ -52,6 +53,7 @@ public class ExperienceDAO {
         for (int i = 0; i < size; i++) {
             String p = "item." + i + ".";
             Experience ex = new Experience();
+            ex.setType(props.getProperty(p + "type"));
             ex.setJobTitle(props.getProperty(p + "jobTitle"));
             ex.setCompany(props.getProperty(p + "company"));
             ex.setStartDate(props.getProperty(p + "startDate"));

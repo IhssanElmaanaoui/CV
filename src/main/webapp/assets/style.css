@@ -121,6 +121,27 @@ body {
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
+.radio-group {
+    display: flex;
+    gap: var(--space-lg);
+    margin: var(--space-sm) 0 var(--space-md) 0;
+}
+.radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+.added-list {
+    margin: 0 0 var(--space-md) 0;
+    padding: var(--space-sm);
+    background: #f0f9ff;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+}
+
 .form-actions {
     margin-top: var(--space-xl);
     display: flex;

@@ -46,18 +46,40 @@
         </c:if>
 
         <c:if test="${not empty experiences}">
-            <section class="cv-section" aria-labelledby="experience-heading">
-                <h2 id="experience-heading">Experience</h2>
-                <c:forEach var="ex" items="${experiences}" varStatus="st">
-                    <article class="cv-entry">
-                        <h3>${ex.jobTitle}</h3>
-                        <p class="cv-meta">${ex.company} <c:if test="${not empty ex.dateRange}"> – ${ex.dateRange}</c:if></p>
-                        <c:if test="${not empty ex.description}">
-                            <p>${ex.description}</p>
+            <c:set var="hasStage" value="false"/>
+            <c:set var="hasJob" value="false"/>
+            <c:forEach var="ex" items="${experiences}">
+                <c:if test="${ex.type == 'stage'}"><c:set var="hasStage" value="true"/></c:if>
+                <c:if test="${ex.type != 'stage'}"><c:set var="hasJob" value="true"/></c:if>
+            </c:forEach>
+            <c:if test="${hasStage == true}">
+                <section class="cv-section" aria-labelledby="stage-heading">
+                    <h2 id="stage-heading">Stage (Internships)</h2>
+                    <c:forEach var="ex" items="${experiences}">
+                        <c:if test="${ex.type == 'stage'}">
+                            <article class="cv-entry">
+                                <h3>${ex.jobTitle}</h3>
+                                <p class="cv-meta">${ex.company} <c:if test="${not empty ex.dateRange}"> – ${ex.dateRange}</c:if></p>
+                                <c:if test="${not empty ex.description}"><p>${ex.description}</p></c:if>
+                            </article>
                         </c:if>
-                    </article>
-                </c:forEach>
-            </section>
+                    </c:forEach>
+                </section>
+            </c:if>
+            <c:if test="${hasJob == true}">
+                <section class="cv-section" aria-labelledby="jobs-heading">
+                    <h2 id="jobs-heading">Professional Experience (Jobs)</h2>
+                    <c:forEach var="ex" items="${experiences}">
+                        <c:if test="${ex.type != 'stage'}">
+                            <article class="cv-entry">
+                                <h3>${ex.jobTitle}</h3>
+                                <p class="cv-meta">${ex.company} <c:if test="${not empty ex.dateRange}"> – ${ex.dateRange}</c:if></p>
+                                <c:if test="${not empty ex.description}"><p>${ex.description}</p></c:if>
+                            </article>
+                        </c:if>
+                    </c:forEach>
+                </section>
+            </c:if>
         </c:if>
 
         <c:if test="${not empty skillsHobbies and (not empty skillsHobbies.technicalSkills or not empty skillsHobbies.softSkills)}">

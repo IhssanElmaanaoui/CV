@@ -10,6 +10,8 @@ public class Experience implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** "stage" = internship, "job" = professional experience */
+    private String type;
     private String jobTitle;
     private String company;
     private String startDate;
@@ -17,6 +19,14 @@ public class Experience implements Serializable {
     private String description;
 
     public Experience() {
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getJobTitle() {

@@ -27,6 +27,11 @@ public class ExperienceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        @SuppressWarnings("unchecked")
+        List<Experience> list = (List<Experience>) session.getAttribute(SESSION_EXPERIENCES);
+        if (list == null) list = new ArrayList<>();
+        request.setAttribute(SESSION_EXPERIENCES, list);
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
@@ -34,33 +39,41 @@ public class ExperienceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
+        String action = trim(request.getParameter("action"));
+        String type = trim(request.getParameter("type"));
         String jobTitle = trim(request.getParameter("jobTitle"));
         String company = trim(request.getParameter("company"));
         String startDate = trim(request.getParameter("startDate"));
         String endDate = trim(request.getParameter("endDate"));
         String description = trim(request.getParameter("description"));
 
-        Experience ex = new Experience();
-        ex.setJobTitle(jobTitle);
-        ex.setCompany(company);
-        ex.setStartDate(startDate);
-        ex.setEndDate(endDate);
-        ex.setDescription(description);
-
         HttpSession session = request.getSession(true);
         @SuppressWarnings("unchecked")
         List<Experience> list = (List<Experience>) session.getAttribute(SESSION_EXPERIENCES);
-        if (list == null) {
-            list = new ArrayList<>();
-        }
-        list.add(ex);
-        session.setAttribute(SESSION_EXPERIENCES, list);
+        if (list == null) list = new ArrayList<>();
 
-        try {
-            experienceDAO.save(list, session.getId());
-        } catch (Exception e) {
-            request.setAttribute("error", "Could not save data. Please try again.");
-            request.getRequestDispatcher(VIEW).forward(request, response);
+        if (jobTitle != null || company != null) {
+            Experience ex = new Experience();
+            ex.setType(type != null && "stage".equalsIgnoreCase(type) ? "stage" : "job");
+            ex.setJobTitle(jobTitle);
+            ex.setCompany(company);
+            ex.setStartDate(startDate);
+            ex.setEndDate(endDate);
+            ex.setDescription(description);
+            list.add(ex);
+            session.setAttribute(SESSION_EXPERIENCES, list);
+            try {
+                experienceDAO.save(list, session.getId());
+            } catch (Exception e) {
+                request.setAttribute("error", "Could not save data. Please try again.");
+                request.setAttribute(SESSION_EXPERIENCES, list);
+                request.getRequestDispatcher(VIEW).forward(request, response);
+                return;
+            }
+        }
+
+        if ("add".equals(action)) {
+            response.sendRedirect(request.getContextPath() + "/experience");
             return;
         }
 
