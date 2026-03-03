@@ -27,6 +27,11 @@ public class FormationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        @SuppressWarnings("unchecked")
+        List<Formation> list = (List<Formation>) session.getAttribute(SESSION_FORMATIONS);
+        if (list == null) list = new ArrayList<>();
+        request.setAttribute(SESSION_FORMATIONS, list);
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
@@ -38,12 +43,7 @@ public class FormationServlet extends HttpServlet {
         String institution = trim(request.getParameter("institution"));
         String startYear = trim(request.getParameter("startYear"));
         String endYear = trim(request.getParameter("endYear"));
-
-        Formation f = new Formation();
-        f.setDegree(degree);
-        f.setInstitution(institution);
-        f.setStartYear(startYear);
-        f.setEndYear(endYear);
+        String action = trim(request.getParameter("action"));
 
         HttpSession session = request.getSession(true);
         @SuppressWarnings("unchecked")
@@ -51,14 +51,28 @@ public class FormationServlet extends HttpServlet {
         if (list == null) {
             list = new ArrayList<>();
         }
-        list.add(f);
-        session.setAttribute(SESSION_FORMATIONS, list);
 
-        try {
-            formationDAO.save(list, session.getId());
-        } catch (Exception e) {
-            request.setAttribute("error", "Could not save data. Please try again.");
-            request.getRequestDispatcher(VIEW).forward(request, response);
+        if (notBlank(degree) || notBlank(institution)) {
+            Formation f = new Formation();
+            f.setDegree(degree);
+            f.setInstitution(institution);
+            f.setStartYear(startYear);
+            f.setEndYear(endYear);
+            list.add(f);
+            session.setAttribute(SESSION_FORMATIONS, list);
+
+            try {
+                formationDAO.save(list, session.getId());
+            } catch (Exception e) {
+                request.setAttribute("error", "Could not save data. Please try again.");
+                request.setAttribute(SESSION_FORMATIONS, list);
+                request.getRequestDispatcher(VIEW).forward(request, response);
+                return;
+            }
+        }
+
+        if ("add".equals(action)) {
+            response.sendRedirect(request.getContextPath() + "/formation");
             return;
         }
 
@@ -67,5 +81,9 @@ public class FormationServlet extends HttpServlet {
 
     private static String trim(String s) {
         return s == null ? null : s.trim();
+    }
+
+    private static boolean notBlank(String s) {
+        return s != null && !s.isEmpty();
     }
 }
