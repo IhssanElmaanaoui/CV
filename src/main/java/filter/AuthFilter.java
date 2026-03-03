@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * Protects all app URLs except /login, /logout and /assets.
@@ -18,6 +19,15 @@ import java.io.IOException;
  */
 @WebFilter("/*")
 public class AuthFilter implements Filter {
+
+    private static final Set<String> COUNTED_PATHS = Set.of(
+            "/",
+            "/etat-civil",
+            "/formation",
+            "/experience",
+            "/skills",
+            "/cv"
+    );
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -42,6 +52,10 @@ public class AuthFilter implements Filter {
 
         HttpSession session = req.getSession(false);
         if (session != null && session.getAttribute("user") != null) {
+            if ("GET".equalsIgnoreCase(req.getMethod()) && COUNTED_PATHS.contains(path)) {
+                Integer current = (Integer) session.getAttribute("visitCount");
+                session.setAttribute("visitCount", current == null ? 1 : current + 1);
+            }
             chain.doFilter(request, response);
             return;
         }
