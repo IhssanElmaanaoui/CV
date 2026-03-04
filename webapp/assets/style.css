@@ -48,6 +48,19 @@ body {
     justify-content: center;
 }
 
+.login-page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8vh;
+}
+
+.login-card {
+    width: min(560px, 100%) !important;
+    max-width: 560px !important;
+    border-radius: 24px;
+}
+
 .wizard-card {
     width: 100%;
     max-width: 520px;

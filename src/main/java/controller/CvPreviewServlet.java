@@ -27,17 +27,10 @@ public class CvPreviewServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/etat-civil");
-            return;
-        }
+        HttpSession session = request.getSession(true);
 
         EtatCivil etatCivil = (EtatCivil) session.getAttribute("etatCivil");
-        if (etatCivil == null) {
-            response.sendRedirect(request.getContextPath() + "/etat-civil");
-            return;
-        }
+        if (etatCivil == null) etatCivil = new EtatCivil();
         @SuppressWarnings("unchecked")
         List<Formation> formations = (List<Formation>) session.getAttribute("formations");
         @SuppressWarnings("unchecked")

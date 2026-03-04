@@ -8,8 +8,8 @@
     <title>Login – CV Generator</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/style.css">
 </head>
-<body class="wizard-page">
-    <main class="wizard-card">
+<body class="wizard-page login-page">
+    <main class="wizard-card login-card" style="width:min(560px,100%);max-width:560px;margin:0 auto;">
         <header class="wizard-header">
             <h1>Login</h1>
             <p>Sign in to create or edit your CV.</p>

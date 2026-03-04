@@ -17,7 +17,7 @@
 
     <article class="cv-document" id="cv-document">
         <header class="cv-header">
-            <h1>${etatCivil.fullName}</h1>
+            <h1><c:choose><c:when test="${not empty etatCivil.fullName}">${etatCivil.fullName}</c:when><c:otherwise>CV Preview</c:otherwise></c:choose></h1>
             <section class="cv-contact" aria-label="Contact information">
                 <c:if test="${not empty etatCivil.email}"><span>${etatCivil.email}</span></c:if>
                 <c:if test="${not empty etatCivil.phone}"><span>${etatCivil.phone}</span></c:if>
